@@ -35,9 +35,11 @@ def test_simnibs_charm_uses_t1_t2_and_expected_outputs(
 
     expected = adapter.expected_head_model_outputs(tmp_path / "work")
     assert result.returncode == 0
-    assert calls["command"][:3] == [sys.executable, "sub-001", str(t1)]
-    assert str(t2) in calls["command"]
-    assert calls["kwargs"]["cwd"] == str(expected.work_dir)
+    assert Path(calls["command"][0]) == Path(sys.executable)
+    assert calls["command"][1] == "sub-001"
+    assert Path(calls["command"][2]) == t1
+    assert Path(calls["command"][3]) == t2
+    assert Path(calls["kwargs"]["cwd"]) == expected.work_dir
     assert result.artifacts == [expected.m2m_dir, expected.mesh_file]
 
 
@@ -58,4 +60,5 @@ def test_simnibs_solver_passes_parameter_file(monkeypatch, tmp_path: Path) -> No
     result = adapter.run_solver(tmp_path / "work")
 
     assert result.returncode == 0
-    assert calls["command"][:2] == [sys.executable, str(params)]
+    assert Path(calls["command"][0]) == Path(sys.executable)
+    assert Path(calls["command"][1]) == params

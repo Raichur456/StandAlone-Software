@@ -25,5 +25,5 @@ def test_ti_toolbox_solver_passes_parameter_file(monkeypatch, tmp_path: Path) ->
     result = adapter.run_solver(tmp_path / "work")
 
     assert result.returncode == 0
-    assert calls["command"][:2] == [sys.executable, str(params)]
-
+    assert Path(calls["command"][0]) == Path(sys.executable)
+    assert Path(calls["command"][1]) == params

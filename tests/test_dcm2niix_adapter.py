@@ -35,8 +35,8 @@ def test_dcm2niix_adapter_builds_command_and_discovers_outputs(
     result = adapter.convert(tmp_path, tmp_path / "out")
 
     assert result.returncode == 0
-    assert calls["command"][0] == sys.executable
-    assert calls["command"][:3] == [sys.executable, "-b", "y"]
+    assert Path(calls["command"][0]) == Path(sys.executable)
+    assert calls["command"][1:3] == ["-b", "y"]
     assert "-o" in calls["command"]
     assert "scan" in calls["command"]
     assert calls["kwargs"]["capture_output"] is True
