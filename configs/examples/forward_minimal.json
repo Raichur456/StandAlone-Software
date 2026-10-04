@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "job_id": "forward-example",
+  "mode": "forward",
+  "mri": {
+    "t1_nifti": "sample-data/sub-001/T1.nii.gz",
+    "t2_nifti": "sample-data/sub-001/T2.nii.gz"
+  },
+  "stages": {
+    "convert_dicom": false,
+    "create_head_model": false,
+    "run_solver": false
+  },
+  "solver_backend": "simnibs"
+}
+

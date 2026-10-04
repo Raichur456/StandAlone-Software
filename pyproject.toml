@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tis-standalone-engine"
+version = "0.1.0"
+description = "Standalone orchestration engine for TIS compute workflows."
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+  { name = "TIS Standalone Engine Contributors" }
+]
+dependencies = [
+  "pydantic>=2.7",
+  "typer>=0.12",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.2",
+  "pyinstaller>=6.6",
+]
+
+[project.scripts]
+tis-engine = "tis_engine.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tis_engine"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
+

@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "job_id": "inverse-example",
+  "mode": "inverse",
+  "mri": {
+    "dicom_dir": "sample-data/dicom"
+  },
+  "stages": {
+    "convert_dicom": true,
+    "create_head_model": false,
+    "run_solver": false
+  },
+  "tools": {
+    "dcm2niix": {
+      "executable": "dcm2niix",
+      "output_filename": "converted",
+      "extra_args": ["-z", "y"],
+      "timeout_seconds": 1800
+    }
+  },
+  "solver_backend": "ti_toolbox"
+}
+

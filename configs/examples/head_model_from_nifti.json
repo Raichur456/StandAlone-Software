@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "job_id": "head-model-from-nifti-example",
+  "mode": "forward",
+  "mri": {
+    "t1_nifti": "/Users/gururajkrishna/Desktop/StandAlone Software/sample-data/sub-001/T1.nii.gz"
+  },
+  "stages": {
+    "convert_dicom": false,
+    "create_head_model": true,
+    "run_solver": false
+  },
+  "tools": {
+    "simnibs": {
+      "charm_executable": "/Users/gururajkrishna/Applications/SimNIBS-4.6/bin/charm",
+      "subject_id": "sub-001",
+      "charm_extra_args": ["--forceqform"],
+      "timeout_seconds": 7200
+    }
+  },
+  "solver_backend": "simnibs"
+}

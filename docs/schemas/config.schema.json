@@ -1,0 +1,334 @@
+{
+  "$defs": {
+    "Dcm2niixConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "executable": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Executable"
+        },
+        "output_filename": {
+          "default": "converted",
+          "title": "Output Filename",
+          "type": "string"
+        },
+        "bids_sidecar": {
+          "default": true,
+          "title": "Bids Sidecar",
+          "type": "boolean"
+        },
+        "extra_args": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Extra Args",
+          "type": "array"
+        },
+        "timeout_seconds": {
+          "default": 1800,
+          "minimum": 1,
+          "title": "Timeout Seconds",
+          "type": "integer"
+        }
+      },
+      "title": "Dcm2niixConfig",
+      "type": "object"
+    },
+    "MRIInput": {
+      "additionalProperties": false,
+      "properties": {
+        "dicom_dir": {
+          "anyOf": [
+            {
+              "format": "path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Dicom Dir"
+        },
+        "t1_nifti": {
+          "anyOf": [
+            {
+              "format": "path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "T1 Nifti"
+        },
+        "t2_nifti": {
+          "anyOf": [
+            {
+              "format": "path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "T2 Nifti"
+        }
+      },
+      "title": "MRIInput",
+      "type": "object"
+    },
+    "OutputConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "work_dir": {
+          "anyOf": [
+            {
+              "format": "path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Work Dir"
+        }
+      },
+      "title": "OutputConfig",
+      "type": "object"
+    },
+    "RunMode": {
+      "enum": [
+        "forward",
+        "inverse"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    },
+    "SimNIBSConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "charm_executable": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Charm Executable"
+        },
+        "subject_id": {
+          "default": "subject",
+          "minLength": 1,
+          "title": "Subject Id",
+          "type": "string"
+        },
+        "subject_dir": {
+          "anyOf": [
+            {
+              "format": "path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Subject Dir"
+        },
+        "charm_extra_args": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Charm Extra Args",
+          "type": "array"
+        },
+        "solver_executable": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Solver Executable"
+        },
+        "parameter_file": {
+          "anyOf": [
+            {
+              "format": "path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parameter File"
+        },
+        "solver_extra_args": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Solver Extra Args",
+          "type": "array"
+        },
+        "timeout_seconds": {
+          "default": 7200,
+          "minimum": 1,
+          "title": "Timeout Seconds",
+          "type": "integer"
+        }
+      },
+      "title": "SimNIBSConfig",
+      "type": "object"
+    },
+    "SolverBackend": {
+      "enum": [
+        "simnibs",
+        "ti_toolbox"
+      ],
+      "title": "SolverBackend",
+      "type": "string"
+    },
+    "StageToggles": {
+      "additionalProperties": false,
+      "properties": {
+        "convert_dicom": {
+          "default": false,
+          "title": "Convert Dicom",
+          "type": "boolean"
+        },
+        "create_head_model": {
+          "default": false,
+          "title": "Create Head Model",
+          "type": "boolean"
+        },
+        "run_solver": {
+          "default": false,
+          "title": "Run Solver",
+          "type": "boolean"
+        }
+      },
+      "title": "StageToggles",
+      "type": "object"
+    },
+    "TIToolboxConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "executable": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Executable"
+        },
+        "parameter_file": {
+          "anyOf": [
+            {
+              "format": "path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parameter File"
+        },
+        "extra_args": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Extra Args",
+          "type": "array"
+        },
+        "timeout_seconds": {
+          "default": 7200,
+          "minimum": 1,
+          "title": "Timeout Seconds",
+          "type": "integer"
+        }
+      },
+      "title": "TIToolboxConfig",
+      "type": "object"
+    },
+    "ToolsConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "dcm2niix": {
+          "$ref": "#/$defs/Dcm2niixConfig"
+        },
+        "simnibs": {
+          "$ref": "#/$defs/SimNIBSConfig"
+        },
+        "ti_toolbox": {
+          "$ref": "#/$defs/TIToolboxConfig"
+        }
+      },
+      "title": "ToolsConfig",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "job_id": {
+      "minLength": 1,
+      "title": "Job Id",
+      "type": "string"
+    },
+    "mode": {
+      "$ref": "#/$defs/RunMode"
+    },
+    "mri": {
+      "$ref": "#/$defs/MRIInput"
+    },
+    "outputs": {
+      "$ref": "#/$defs/OutputConfig"
+    },
+    "stages": {
+      "$ref": "#/$defs/StageToggles"
+    },
+    "tools": {
+      "$ref": "#/$defs/ToolsConfig"
+    },
+    "solver_backend": {
+      "$ref": "#/$defs/SolverBackend",
+      "default": "simnibs"
+    }
+  },
+  "required": [
+    "job_id",
+    "mode",
+    "mri"
+  ],
+  "title": "JobConfig",
+  "type": "object"
+}

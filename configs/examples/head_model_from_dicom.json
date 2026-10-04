@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "job_id": "head-model-from-dicom-example",
+  "mode": "forward",
+  "mri": {
+    "dicom_dir": "/Users/gururajkrishna/Downloads/OneDrive_1_5-28-2026"
+  },
+  "stages": {
+    "convert_dicom": true,
+    "create_head_model": true,
+    "run_solver": false
+  },
+  "tools": {
+    "dcm2niix": {
+      "executable": "dcm2niix",
+      "output_filename": "sub-001_T1w",
+      "bids_sidecar": true,
+      "extra_args": ["-z", "y"],
+      "timeout_seconds": 1800
+    },
+    "simnibs": {
+      "charm_executable": "/Users/gururajkrishna/Applications/SimNIBS-4.6/bin/charm",
+      "subject_id": "sub-001",
+      "timeout_seconds": 7200
+    }
+  },
+  "solver_backend": "simnibs"
+}
