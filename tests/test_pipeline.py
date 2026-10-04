@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 from pathlib import Path
-import sys
+
 import pytest
 
 from tis_engine.models.config import JobConfig
