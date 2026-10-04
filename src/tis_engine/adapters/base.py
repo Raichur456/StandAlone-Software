@@ -34,11 +34,14 @@ def run_subprocess(
 ) -> CommandResult:
     started_at = _utc_now()
     started = time.monotonic()
-    cwd_text = str(cwd) if cwd else None
+    normalized_command = [
+        arg.replace("\\", "/") if isinstance(arg, str) else arg for arg in command
+    ]
+    cwd_text = str(Path(cwd).as_posix()) if cwd else None
 
     try:
         completed = subprocess.run(
-            command,
+            normalized_command,
             cwd=cwd_text,
             capture_output=True,
             text=True,
@@ -47,7 +50,7 @@ def run_subprocess(
         )
         return CommandResult(
             stage=stage,
-            command=command,
+            command=normalized_command,
             cwd=cwd_text,
             returncode=completed.returncode,
             stdout=completed.stdout,
@@ -60,7 +63,7 @@ def run_subprocess(
     except subprocess.TimeoutExpired as exc:
         return CommandResult(
             stage=stage,
-            command=command,
+            command=normalized_command,
             cwd=cwd_text,
             returncode=-1,
             stdout=_decode_timeout_stream(exc.stdout),
@@ -72,7 +75,7 @@ def run_subprocess(
             artifacts=artifacts or [],
         )
     except FileNotFoundError as exc:
-        raise ToolNotFoundError(command[0]) from exc
+        raise ToolNotFoundError(normalized_command[0]) from exc
 
 
 def _decode_timeout_stream(value: str | bytes | None) -> str:

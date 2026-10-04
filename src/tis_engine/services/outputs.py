@@ -47,8 +47,8 @@ def command_stage_record(
         "finished_at": result.finished_at,
         "duration_seconds": result.duration_seconds,
         "exit_code": result.returncode,
-        "command": result.command,
-        "cwd": result.cwd,
+        "command": [arg.replace("\\", "/") for arg in result.command],
+        "cwd": result.cwd.replace("\\", "/") if result.cwd else None,
         "timed_out": result.timed_out,
         "stdout_log": logs["stdout_log"],
         "stderr_log": logs["stderr_log"],
@@ -105,7 +105,7 @@ def write_failure_manifest(
 
 def relative_to_output(path: Path, output_dir: Path) -> str:
     try:
-        return str(path.resolve().relative_to(output_dir.resolve()))
+        relative = path.resolve().relative_to(output_dir.resolve())
+        return relative.as_posix()
     except ValueError:
-        return str(path)
-
+        return str(path).replace("\\", "/")

@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import json
-import subprocess
-import sys
 from pathlib import Path
+
+import pytest
 
 from tis_engine.models.config import JobConfig
 from tis_engine.orchestration.pipeline import run_pipeline
@@ -65,8 +65,8 @@ def test_pipeline_converts_dicom_and_records_nifti_and_sidecar(
 
     manifest = _read_manifest(tmp_path)
     assert code == StatusCode.SUCCESS
-    assert _artifact(manifest, "converted_nifti")["path"] == "converted/converted.nii.gz"
-    assert _artifact(manifest, "converted_bids_sidecar")["path"] == "converted/converted.json"
+    assert _artifact(manifest, "converted_nifti")["path"].replace("\\", "/") == "converted/converted.nii.gz"
+    assert _artifact(manifest, "converted_bids_sidecar")["path"].replace("\\", "/") == "converted/converted.json"
 
 
 def test_pipeline_converts_dicom_then_runs_charm(monkeypatch, tmp_path: Path) -> None:
@@ -111,7 +111,7 @@ def test_pipeline_converts_dicom_then_runs_charm(monkeypatch, tmp_path: Path) ->
 
     manifest = _read_manifest(tmp_path)
     assert code == StatusCode.SUCCESS
-    assert charm_command["command"][2].endswith("converted/converted.nii.gz")
+    assert charm_command["command"][2].replace("\\", "/").endswith("converted/converted.nii.gz")
     assert _artifact(manifest, "converted_nifti")["status"] == "present"
     assert _artifact(manifest, "simnibs_mesh")["status"] == "present"
 
@@ -183,8 +183,8 @@ def test_pipeline_runs_charm_and_records_expected_outputs(
 
     manifest = _read_manifest(tmp_path)
     assert code == StatusCode.SUCCESS
-    assert _artifact(manifest, "simnibs_m2m_dir")["path"] == "work/simnibs/m2m_sub-001"
-    assert _artifact(manifest, "simnibs_mesh")["path"] == "work/simnibs/sub-001.msh"
+    assert _artifact(manifest, "simnibs_m2m_dir")["path"].replace("\\", "/") == "work/simnibs/m2m_sub-001"
+    assert _artifact(manifest, "simnibs_mesh")["path"].replace("\\", "/") == "work/simnibs/sub-001.msh"
 
 
 def test_pipeline_fails_charm_when_expected_outputs_are_missing(
